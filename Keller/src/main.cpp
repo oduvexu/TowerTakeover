@@ -21,14 +21,6 @@ bool rvb=false;//true being red, false being blue
 bool bumpRamp=false;
 
 controller Controller = controller(primary);
-motor DriveFR = motor(PORT2, ratio18_1, true);
-motor DriveBR = motor(PORT10, ratio18_1, true);
-motor DriveBL = motor(PORT3, ratio18_1, false);
-motor DriveFL = motor(PORT4, ratio18_1, false);
-motor ArmSpinnerR = motor(PORT7, ratio18_1, true);
-motor ArmSpinnerL = motor(PORT6, ratio18_1, false);
-motor RampRaiserR = motor(PORT1, ratio18_1, true);
-motor RampRaiserL = motor(PORT5, ratio18_1, false);
 
 void armcontrol();
 void armcontrol(int a);
@@ -60,6 +52,13 @@ void usercontrol(void) {
     armcontrol();
     rampcontrol();
     drivecontrol();
+    Brain.Screen.clearScreen();
+    Brain.Screen.setCursor(1,1);
+    Brain.Screen.print(AccnGyro.orientation(pitch, degrees));
+    Brain.Screen.newLine();
+    Brain.Screen.print(AccnGyro.orientation(roll,degrees));
+    Brain.Screen.newLine();
+    Brain.Screen.print(AccnGyro.orientation(yaw,degrees));
     wait(.01,seconds);
   }
 }

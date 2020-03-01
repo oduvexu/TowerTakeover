@@ -29,6 +29,8 @@ motor ArmSpinnerR = motor(PORT9, ratio18_1, true);
 motor ArmSpinnerL = motor(PORT10, ratio18_1, false);
 motor RampConveyer = motor(PORT11, ratio18_1, true);
 motor ArmCompress = motor(PORT20, ratio18_1, true);
+motor TempurpedicBackSupportL = motor(PORT14, ratio18_1,false);
+motor TempurpedicBackSupportR = motor(PORT13, ratio18_1,true);
 
 motor leftMotorA = motor(PORT3, ratio18_1, false);
 motor leftMotorB = motor(PORT4, ratio18_1, false);
@@ -38,7 +40,7 @@ motor rightMotorA = motor(PORT1, ratio18_1, true);
 motor rightMotorB = motor(PORT2, ratio18_1, true); 
 motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 
-inertial TurnGyroSmart = inertial(PORT13);
+inertial TurnGyroSmart = inertial(PORT12);
 smartdrive Drivetrain= smartdrive(LeftDriveSmart, RightDriveSmart, TurnGyroSmart,319.19, 320, 165, mm, 1);
 
 

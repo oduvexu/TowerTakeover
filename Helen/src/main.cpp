@@ -25,6 +25,7 @@ competition Competition;
 
 
 // define your global instances of motors and other devices here
+  void tempurpedicControl(); //this controls the back wheels. Feel free to rename this Andrew, -Jake
   void drivecontrol();
   void armcontrol();
   void rampcontrol();
@@ -105,6 +106,8 @@ void pre_auton(void) {
     DriveFL.setStopping(coast);
     DriveFR.setStopping(coast);
     DriveBR.setStopping(coast);
+    TempurpedicBackSupportL.setStopping(hold);
+    TempurpedicBackSupportR.setStopping(hold);
     
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
@@ -141,15 +144,7 @@ void usercontrol(void) {
       if(Controller.ButtonA.pressing()){
         smartAutonomous();
       }
-      while(Controller.ButtonDown.pressing()){
-        DriveBL.spin(fwd, -10, pct);
-        DriveBR.spin(fwd, -10, pct);
-        DriveFR.spin(fwd, -10, pct);
-        DriveFL.spin(fwd, -10, pct);
-
-        ArmSpinnerL.spin(fwd, 25, pct);
-        ArmSpinnerR.spin(fwd, 25, pct);
-      }
+      tempurpedicControl();
     }
 }
 
@@ -317,4 +312,28 @@ void reset(){
   ArmTilterL.setRotation(0, deg);
   ArmTilterR.setRotation(0, deg);
 
+}
+void tempurpedicControl()
+{
+  if(Controller.ButtonDown.pressing())
+    {
+      TempurpedicBackSupportR.spin(fwd,-50,pct);
+      TempurpedicBackSupportL.spin(fwd,-50,pct);
+    }
+  else if(Controller.ButtonUp.pressing())
+  {
+      TempurpedicBackSupportR.rotateTo(0, degrees,false);
+      TempurpedicBackSupportL.rotateTo(0, degrees,false);
+  }
+  else
+  {
+    TempurpedicBackSupportL.stop();
+    TempurpedicBackSupportR.stop();
+  }
+
+  Brain.Screen.clearScreen();
+  Brain.Screen.print(TempurpedicBackSupportL.position(degrees));
+  Brain.Screen.newLine();
+  Brain.Screen.print(TempurpedicBackSupportR.position(degrees));
+  Brain.Screen.setCursor(1,1);
 }
